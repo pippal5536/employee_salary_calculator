@@ -1,0 +1,46 @@
+ADP (n.d.) How to calculate overtime pay. Available at: https://www.adp.com/resources/articles-and-insights/articles/h/how-to-calculate-overtime-pay.aspx (Accessed: 5 August 2024).
+
+[NOTE #1] The federal rate is 0.5 only in cases of weighted average or multiple pay rates, otherwise, 1.5 .
+[NOTE #2] Assuming more than 40 hours is overtime.
+
+a. Overtime pay for hourly employees
+
+- Fixed hourly pay:
+
+    1) calculate base pay: x * total working hours excluding overtime [x = pay rate]
+    2) calculate overtime rate of pay: x * 1.5
+    3) calculate overtime pay: overtime rate of pay * overtime hours
+    4) calculate total pay: base pay + overtime pay
+
+- Multiple pay rates (Day and Night shifts):
+
+    1) Calculate base pay: (total hours on Day shifts * day shift pay rate) + (total hours on Night shifts * Night shift pay rate)
+    2) Calculate regular rate of pay: Base pay / total hours of day shifts and Night shifts without overtime
+    3) Calculate overtime premium rate: regular rate of pay * 0.5
+    4) calculate total overtime premium pay: overtime premium rate * overtime hours 
+    5) Total pay: Base pay + total overtime premium pay 
+
+b. Overtime pay when earning a salary
+
+- Fixed work week [Fixed pay, e.g, $400/week] :
+
+    1) Calculate regular rate of pay: Base pay / hours worked per week
+    2) Calculate overtime premium rate: regular rate of pay * 1.5
+    3) calculate overtime premium pay: overtime premium rate * overtime hours 
+    4) Total pay: Base pay + overtime premium pay 
+
+- Fluctuating work week :
+
+    1) Calculate regular rate of pay: Base pay / total hours in a work week (includes overtime hours)
+    2) Calculate overtime premium rate: regular rate of pay * 0.5
+    3) calculate overtime premium pay: overtime premium rate * overtime hours (total hours - 40)
+    4) Total pay: Base pay + overtime premium pay 
+
+c. Overtime pay for non-hourly compensation
+
+- Piece-rate work
+    
+    1) Calculate regular rate of pay: the piece rate earning / the number of hours worked
+    2) Calculate overtime premium rate: regular rate of pay * 0.5
+    3) calculate overtime premium pay: overtime premium rate * overtime hours 
+    4) Total pay: the piece rate earning + overtime premium pay 

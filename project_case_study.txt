@@ -1,0 +1,3 @@
+**Case Study:** You work for a payroll department, and you need to calculate the total pay for employees based on their regular hours and any overtime. Overtime is paid at a higher rate than regular hours.
+
+**Problem:** Given an employee's total hours worked in a week, their hourly rate, and an overtime rate, calculate the total pay, including overtime.

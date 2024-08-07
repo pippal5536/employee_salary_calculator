@@ -60,4 +60,12 @@ Core components or operations: conditionals, math operations, template string
 
 */
 
+function calculatePay(hoursWorked, hourlyRate, overtimeMultiplier) {
+  if (hoursWorked < 0) throw new Error("Hours worked cannot be negative");
+  if (hoursWorked <= 40) return hoursWorked * hourlyRate;
+  const overtimeHours = hoursWorked - 40;
+  return (40 * hourlyRate) + (overtimeHours * hourlyRate * overtimeMultiplier);
+}
+
+module.exports = calculatePay;
 

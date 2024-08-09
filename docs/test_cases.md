@@ -1,0 +1,15 @@
+- Arithmatic Logic for `base pay` is correct.
+- Arithmatic Logic for `regular rate of pay` is correct.
+- Arithmatic Logic for `overtime premium rate` is correct.
+- Arithmatic Logic for `total overtime pay` is correct.
+- Arithmatic Logic for `total pay` is correct.
+- Show total weekly payment.
+- Input negative number.
+- Input huge number.
+- Exceeding work limit including over-time.
+- Only worked in day shift.
+- Only worked in night shift.
+- worked both day and night shift.
+- Both day and night shift is false.
+- currency showing in decimal and 2 digit float, e.g, 100.02
+- Employee taken paid leave.

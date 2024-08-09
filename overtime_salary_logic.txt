@@ -20,6 +20,14 @@ a. Overtime pay for hourly employees
     4) calculate total overtime premium pay: overtime premium rate * overtime hours 
     5) Total pay: Base pay + total overtime premium pay 
 
+- Multiple pay rate with 40 hours as regular:
+    1) Calculate base pay: (total hours on Day shifts * day shift pay rate) + (total hours on Night shifts * Night shift pay rate)
+    2) Calculate weighted regular rate of pay: Base pay / total hours of day shifts and Night shifts with overtime
+    3) Calculate overtime premium rate: weighted regular rate of pay * 0.5
+    4) calculate total overtime premium pay: overtime premium rate * overtime hours [overtime hours = total hours - 40]
+    5) Recalculate base pay (if > 40): 40 * weighted regular rate of pay 
+    6) Total pay: Base pay + total overtime premium pay 
+
 b. Overtime pay when earning a salary
 
 - Fixed work week [Fixed pay, e.g, $400/week] :

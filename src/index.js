@@ -33,18 +33,21 @@ Assumptions:
 */
 
 let dayShift = true;
-let nightShift = false;
+let nightShift = true;
+
+let totalDayWorkedHour = 0;
+let totalNightWorkedHour = 41;
 
 const payRateDay = 10;
 const payRateNight = 12;
 
-const federalRate = (dayShift && nightShift) ? 1.5 : 0.5;
+const federalRate = (dayShift && nightShift) ? 0.5 : 1.5;
 
 const maxBaseHour = 40;
 
 const workLimitHour = 60;
 
-let totalWorkedHour = 59;
+let totalWorkedHour = totalDayWorkedHour + totalNightWorkedHour;
 totalWorkedHour > 60 ? (console.warn('Employee exceeded work limit and get paid for 60 hours according to company policies.') , totalWorkedHour = workLimitHour) : totalWorkedHour;
  
 let basePay = 0;
@@ -56,18 +59,41 @@ let overtimePay = 0;
 let totalPayWeek = 0; 
 
 /*
-Only day/night shift:
- 1) calculate base pay: x * total working hours excluding overtime [x = pay rate]
-    2) calculate overtime rate of pay: x * 1.5
-    3) calculate overtime pay: overtime rate of pay * overtime hours
-    4) calculate total pay: base pay + overtime pay
+- Multiple pay rate with 40 hours as regular:
+    1) Calculate base pay: (total hours on Day shifts * day shift pay rate) + (total hours on Night shifts * Night shift pay rate)
+    2) Calculate weighted regular rate of pay: Base pay / total hours of day shifts and Night shifts with overtime
+    3) Calculate overtime premium rate: weighted regular rate of pay * 0.5
+    4) calculate total overtime premium pay: overtime premium rate * overtime hours [overtime hours = total hours - 40]
+    5) Recalculate base pay (if > 40): 40 * weighted regular rate of pay 
+    6) Total pay: Base pay + total overtime premium pay 
 */
 
+
+
 // TODO: See Math method and its objects on MDN
-// TODO: Ask gpt about work limit thingy like what happens.
 
 if (dayShift && nightShift){
-  console.log('both');
+  basePay = (totalDayWorkedHour * payRateDay) + (totalNightWorkedHour * payRateNight);
+  let weightedPayRate = basePay / totalWorkedHour;
+  overtimePayRate = weightedPayRate * 0.5;
+  overtimePay = overtimePayRate * totalOvertimeHour;
+  (totalWorkedHour > 40) ? (basePay = (totaltWorkedHourWithout * weightedPayRate)) : basePay;
+  totalPayWeek = basePay + overtimePay;
+  console.log(`
+    Employee Payroll Summary:
+    --------------------------
+    - Shift Type: Day Shift + Night Shift
+    - Regular Day Pay Rate: $${payRateDay}/hour
+    - Regular Night Pay Rate: $${payRateNight}/hour
+    - Regular Weighted Pay Rate: $${weightedPayRate}/hour
+    - Regular Hours Worked: ${totaltWorkedHourWithout} hours
+    - Regular Earnings: $${basePay}
+    - Overtime Hours Worked: ${totalOvertimeHour} hours
+    - Overtime Pay Rate: $${overtimePayRate}/hour
+    - Overtime Earnings: $${overtimePay}
+    --------------------------
+    - Total Weekly Earnings: $${totalPayWeek}
+`);
 } else if (dayShift && !nightShift){
   basePay = payRateDay * totaltWorkedHourWithout;
   overtimePayRate = payRateDay * federalRate;
@@ -90,15 +116,23 @@ if (dayShift && nightShift){
 
 
 } else if (!dayShift && nightShift){
-  console.log('omnly night shift');
   basePay = payRateNight * totaltWorkedHourWithout;
-  console.log(`base pay: ${basePay}`);
-  overtimePayRate = payRateDay * federalRate;
-  console.log(`over time pay rate: ${overtimePayRate}`);
+  overtimePayRate = payRateNight * federalRate;
   overtimePay = overtimePayRate * totalOvertimeHour;
-  console.log(`over time pay: ${overtimePay}`);
   totalPayWeek = basePay + overtimePay;
-  console.log(`total pay in a week: ${totalPayWeek}`);
+  console.log(`
+    Employee Payroll Summary:
+    --------------------------
+    - Shift Type: Night Shift
+    - Regular Pay Rate: $${payRateNight}/hour
+    - Regular Hours Worked: ${totaltWorkedHourWithout} hours
+    - Regular Earnings: $${basePay}
+    - Overtime Hours Worked: ${totalOvertimeHour} hours
+    - Overtime Pay Rate: $${overtimePayRate}/hour
+    - Overtime Earnings: $${overtimePay}
+    --------------------------
+    - Total Weekly Earnings: $${totalPayWeek}
+`);
 } else{
   console.log('Invalid')
 }

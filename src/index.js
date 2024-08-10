@@ -32,11 +32,11 @@ Assumptions:
 
 */
 
-let dayShift = true;
+let dayShift = false;
 let nightShift = true;
 
-let totalDayWorkedHour = 0;
-let totalNightWorkedHour = 41;
+let totalDayWorkedHour = 20;
+let totalNightWorkedHour = 80;
 
 const payRateDay = 10;
 const payRateNight = 12;
@@ -48,41 +48,30 @@ const maxBaseHour = 40;
 const workLimitHour = 60;
 
 let totalWorkedHour = totalDayWorkedHour + totalNightWorkedHour;
-totalWorkedHour > 60 ? (console.warn('Employee exceeded work limit and get paid for 60 hours according to company policies.') , totalWorkedHour = workLimitHour) : totalWorkedHour;
- 
-let basePay = 0;
+
+
 let totalOvertimeHour = totalWorkedHour >= 40 ? (totalWorkedHour - 40) : 0;
 let totaltWorkedHourWithout = totalWorkedHour - totalOvertimeHour;
-
-let overtimePayRate = 0;
-let overtimePay = 0;
-let totalPayWeek = 0; 
-
-/*
-- Multiple pay rate with 40 hours as regular:
-    1) Calculate base pay: (total hours on Day shifts * day shift pay rate) + (total hours on Night shifts * Night shift pay rate)
-    2) Calculate weighted regular rate of pay: Base pay / total hours of day shifts and Night shifts with overtime
-    3) Calculate overtime premium rate: weighted regular rate of pay * 0.5
-    4) calculate total overtime premium pay: overtime premium rate * overtime hours [overtime hours = total hours - 40]
-    5) Recalculate base pay (if > 40): 40 * weighted regular rate of pay 
-    6) Total pay: Base pay + total overtime premium pay 
-*/
+ 
+let basePay, overtimePayRate, overtimePay, totalPayWeek, weightedPayRate;
 
 
-
-// TODO: See Math method and its objects on MDN
-
-if (dayShift && nightShift){
+if (dayShift || nightShift){
+  if (totalWorkedHour > 60) {
+  console.warn('Employee exceeded work limit and get paid for 60 hours according to company policies.'); 
+  totalWorkedHour = workLimitHour;
+  totalOvertimeHour = totalWorkedHour - maxBaseHour;
+  } 
   basePay = (totalDayWorkedHour * payRateDay) + (totalNightWorkedHour * payRateNight);
-  let weightedPayRate = basePay / totalWorkedHour;
-  overtimePayRate = weightedPayRate * 0.5;
+  weightedPayRate = basePay / totalWorkedHour;
+  overtimePayRate = weightedPayRate * federalRate;
   overtimePay = overtimePayRate * totalOvertimeHour;
   (totalWorkedHour > 40) ? (basePay = (totaltWorkedHourWithout * weightedPayRate)) : basePay;
   totalPayWeek = basePay + overtimePay;
   console.log(`
     Employee Payroll Summary:
     --------------------------
-    - Shift Type: Day Shift + Night Shift
+    - Shift Type: ${(dayShift && nightShift) ? 'Day Shift + Night Shift' : (dayShift) ? 'Day Shift' : 'Night Shift'}
     - Regular Day Pay Rate: $${payRateDay}/hour
     - Regular Night Pay Rate: $${payRateNight}/hour
     - Regular Weighted Pay Rate: $${weightedPayRate}/hour
@@ -94,45 +83,8 @@ if (dayShift && nightShift){
     --------------------------
     - Total Weekly Earnings: $${totalPayWeek}
 `);
-} else if (dayShift && !nightShift){
-  basePay = payRateDay * totaltWorkedHourWithout;
-  overtimePayRate = payRateDay * federalRate;
-  overtimePay = overtimePayRate * totalOvertimeHour;
-  totalPayWeek = basePay + overtimePay;
- console.log(`
-    Employee Payroll Summary:
-    --------------------------
-    - Shift Type: Day Shift
-    - Regular Pay Rate: $${payRateDay}/hour
-    - Regular Hours Worked: ${totaltWorkedHourWithout} hours
-    - Regular Earnings: $${basePay}
-    - Overtime Hours Worked: ${totalOvertimeHour} hours
-    - Overtime Pay Rate: $${overtimePayRate}/hour
-    - Overtime Earnings: $${overtimePay}
-    --------------------------
-    - Total Weekly Earnings: $${totalPayWeek}
-`);
-
-
-
-} else if (!dayShift && nightShift){
-  basePay = payRateNight * totaltWorkedHourWithout;
-  overtimePayRate = payRateNight * federalRate;
-  overtimePay = overtimePayRate * totalOvertimeHour;
-  totalPayWeek = basePay + overtimePay;
-  console.log(`
-    Employee Payroll Summary:
-    --------------------------
-    - Shift Type: Night Shift
-    - Regular Pay Rate: $${payRateNight}/hour
-    - Regular Hours Worked: ${totaltWorkedHourWithout} hours
-    - Regular Earnings: $${basePay}
-    - Overtime Hours Worked: ${totalOvertimeHour} hours
-    - Overtime Pay Rate: $${overtimePayRate}/hour
-    - Overtime Earnings: $${overtimePay}
-    --------------------------
-    - Total Weekly Earnings: $${totalPayWeek}
-`);
-} else{
-  console.log('Invalid')
+} else {
+  console.warn('Invalid Credintials')
 }
+
+

@@ -1,30 +1,8 @@
-/* 
-
-Inputs:
-
-payRate: The hourly wage rate, e.g., $10/hour.
-baseHours: The maximum number of standard hours worked in a week before overtime is calculated (typically up to 40 hours).
-basePay: The total payment for standard hours worked in a week.
-overTimeRate: The rate at which overtime is paid. This is generally 1.5 times the regular hourly rate.
-federalRate: The federal rate for overtime calculation. It is 0.5 in cases where a weighted average or multiple pay rates are used, otherwise it is 1.5.
-overTimePay: The total payment for overtime hours.
-overHours: The number of hours worked beyond the baseHours, which are considered overtime.
-
-Outputs:
-
-basePay: Total payment for standard hours worked in a week.
-overtimeRate: The effective overtime rate applied for calculating overtime pay.
-overtimePay: Total payment for overtime hours worked.
-totalPay: Total payment for the week, including both standard and overtime pay.
-
-*/
-
-
 /*
 
 Assumptions: 
 1) Employees get paid weekly.
-2) Weekly work limit is 55 hours including over-time. 
+2) Weekly work limit is 60 hours including over-time. 
 3) the payment system is hourly and 10$/h.
 4) night shifts pay 12$/h.
 5) Max base hours is 40.  
@@ -35,39 +13,44 @@ Assumptions:
 let dayShift = false;
 let nightShift = true;
 
-let totalDayWorkedHour = 20;
-let totalNightWorkedHour = 80;
+let totalDayWorkedHours = 20;
+let totalNightWorkedHours = 80;
 
 const payRateDay = 10;
 const payRateNight = 12;
 
 const federalRate = (dayShift && nightShift) ? 0.5 : 1.5;
 
-const maxBaseHour = 40;
+const maxBaseHours = 40;
 
-const workLimitHour = 60;
+const workLimitHours = 60;
 
-let totalWorkedHour = totalDayWorkedHour + totalNightWorkedHour;
+let totalWorkedHours = totalDayWorkedHours + totalNightWorkedHours;
 
 
-let totalOvertimeHour = totalWorkedHour >= 40 ? (totalWorkedHour - 40) : 0;
-let totaltWorkedHourWithout = totalWorkedHour - totalOvertimeHour;
+let totalOvertimeHours = totalWorkedHours > maxBaseHours ? (totalWorkedHours - maxBaseHours) : 0;
+let regularHours = totalWorkedHours - totalOvertimeHours;
  
 let basePay, overtimePayRate, overtimePay, totalPayWeek, weightedPayRate;
 
 
 if (dayShift || nightShift){
-  if (totalWorkedHour > 60) {
+  if (totalWorkedHours > workLimitHours) {
   console.warn('Employee exceeded work limit and get paid for 60 hours according to company policies.'); 
-  totalWorkedHour = workLimitHour;
-  totalOvertimeHour = totalWorkedHour - maxBaseHour;
+  totalWorkedHours = workLimitHours;
+  totalOvertimeHours = totalWorkedHours - maxBaseHours;
   } 
-  basePay = (totalDayWorkedHour * payRateDay) + (totalNightWorkedHour * payRateNight);
-  weightedPayRate = basePay / totalWorkedHour;
+  basePay = (totalDayWorkedHours * payRateDay) + (totalNightWorkedHours * payRateNight);
+  weightedPayRate = basePay / totalWorkedHours;
   overtimePayRate = weightedPayRate * federalRate;
-  overtimePay = overtimePayRate * totalOvertimeHour;
-  (totalWorkedHour > 40) ? (basePay = (totaltWorkedHourWithout * weightedPayRate)) : basePay;
+  overtimePay = overtimePayRate * totalOvertimeHours;
+
+  if (totalWorkedHours > maxBaseHours) {
+    basePay = regularHours * weightedPayRate;
+  }
+  
   totalPayWeek = basePay + overtimePay;
+  
   console.log(`
     Employee Payroll Summary:
     --------------------------
@@ -75,9 +58,9 @@ if (dayShift || nightShift){
     - Regular Day Pay Rate: $${payRateDay}/hour
     - Regular Night Pay Rate: $${payRateNight}/hour
     - Regular Weighted Pay Rate: $${weightedPayRate}/hour
-    - Regular Hours Worked: ${totaltWorkedHourWithout} hours
+    - Regular Hours Worked: ${regularHours} hours
     - Regular Earnings: $${basePay}
-    - Overtime Hours Worked: ${totalOvertimeHour} hours
+    - Overtime Hours Worked: ${totalOvertimeHours} hours
     - Overtime Pay Rate: $${overtimePayRate}/hour
     - Overtime Earnings: $${overtimePay}
     --------------------------

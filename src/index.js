@@ -1,4 +1,5 @@
 /*
+TODO: Test cases
 
 Assumptions:
 1) Employees get paid weekly.
@@ -22,6 +23,9 @@ let totalNightWorkedHours = 80;
 const payRateDay = 10;
 const payRateNight = 12;
 
+// truty and falsy values for negative inputs
+let isNegativeInput = ((totalDayWorkedHours < 0) || (totalNightWorkedHours < 0)) ? true : false  
+
 // Federal rate for overtime calculation: 
 // 0.5 if the employee worked both day and night shifts, otherwise 1.5
 const federalRate = (dayShift && nightShift) ? 0.5 : 1.5;
@@ -44,7 +48,7 @@ let regularHours = totalWorkedHours - totalOvertimeHours;
 let basePay, overtimePayRate, overtimePay, totalPayWeek, weightedPayRate;
 
 // Check if the employee has worked either day or night shifts
-if (dayShift || nightShift) {
+if ((dayShift || nightShift) && (!isNegativeInput)) {
   
   // If total worked hours exceed the work limit, cap it at workLimitHours
   if (totalWorkedHours > workLimitHours) {
@@ -89,6 +93,9 @@ if (dayShift || nightShift) {
     --------------------------
     - Total Weekly Earnings: $${totalPayWeek.toFixed(2)}
   `);
+// All Error messages for invalid inputs
 } else {
-  console.warn('Invalid Credentials');
+  if (isNegativeInput) {
+    console.warn('Negative values not allowed');
+  }
 }

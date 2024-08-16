@@ -1,4 +1,5 @@
-- Input huge number.
+- Input huge number day.
+- Input huge number night.
 - input 0.
 - Exceeding work limit including over-time for day shift.
 - Exceeding work limit including over-time for night shift.
@@ -10,4 +11,5 @@
 - currency showing in decimal and 2 digit notation, e.g, 100.02
 - Employee taken paid leave.
 - Employee had a day/night shift but missed.
+- employee scheduled for 20 hours a week and worked over time.
 - Show total weekly payment.

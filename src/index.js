@@ -1,43 +1,33 @@
-// Inputs: 
-let totalDayWorkedHours = 80;
+// Input data
+let totalDayWorkedHours = 60;
 let totalNightWorkedHours = 0;
 
-// Constants:
+// // Constants and variable declarations
+let dayShift = true;
+let nightShift = false;
 const payRateDay = 10;
 const payRateNight = 12;
 const federalRate = (dayShift && nightShift) ? 0.5 : 1.5;
 const maxBaseHours = 40;
 const workLimitHours = 60;
-
-// Non-contant variables:
-let dayShift = true;
-let nightShift = false;
-let isNegativeInput = (totalDayWorkedHours < 0) ? true : false 
-let totalWorkedHours, regularHours, totalOvertimeHours, weightedPayRate;
+let isNegativeInput = (totalDayWorkedHours < 0) ? true : false ;
+// If it's a day shift, set the total worked hours to the total day worked hours. 
+let totalWorkedHours = dayShift ? totalDayWorkedHours : 0
+let regularHours, totalOvertimeHours, weightedPayRate;
 let basePay, overtimePayRate, overtimePay, totalPayWeek;
 
-// If it's a day shift, set the total worked hours to the total day worked hours. 
-if (dayShift) {
-  totalWorkedHours = totalDayWorkedHours;
-  } 
-
-// Calculate overtime hours if total worked hours exceed the base hours, with adjustments if the work limit is exceeded.
-if ((totalWorkedHours > maxBaseHours) && (totalWorkedHours <= workLimitHours)) {
-  
-  totalOvertimeHours = totalWorkedHours - maxBaseHours;
-  
-} else if (totalWorkedHours > workLimitHours) {
+// Calculate overtime hours and adjust total worked hours if work limit is exceeded
+totalOvertimeHours = Math.max(0, totalWorkedHours - maxBaseHours);
+if (totalWorkedHours > workLimitHours) {
   totalWorkedHours = workLimitHours;
   totalOvertimeHours = workLimitHours - maxBaseHours;
   console.warn(`Since the employee exceeded the work limit, regular hours will be capped at ${maxBaseHours}, with the remaining ${totalOvertimeHours} hours classified as overtime.`);
-} else {
-  totalOvertimeHours = 0;
 }
 
-// Calculate regular hours.
+// Determine regular working hours
 regularHours = totalWorkedHours - totalOvertimeHours;
 
-// Calculate payment of a week
+// Compute weekly payment based on shift and hours worked
 if (dayShift) {
   basePay = regularHours * payRateDay;
   overtimePayRate = payRateDay * federalRate;
@@ -45,8 +35,8 @@ if (dayShift) {
   totalPayWeek = overtimePay + basePay;
 }
 
-// Error testings
-console.log('input', totalWorkedHours)
+// Log results for verification and debugging
+console.log('input', totalDayWorkedHours)
 console.warn('Overtime', totalOvertimeHours)
 console.warn('regular', regularHours)
 console.log('Base pay day shift', basePay)

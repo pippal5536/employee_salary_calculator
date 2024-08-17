@@ -10,7 +10,7 @@
 
 **Test Steps:**
 
-1. Set `totalDayWorkedHours` and/or `totalNightWorkedHours` to negative values.
+1. Set `totalDayWorkedHours` to negative values.
 2. Run the program.
 
 **Expected Results:**

@@ -1,6 +1,6 @@
 1. reducing redundant Code:
 
-from
+FROM
 
 ```
 if ((totalWorkedHours > maxBaseHours) && (totalWorkedHours <= workLimitHours)) {

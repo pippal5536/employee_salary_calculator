@@ -1,15 +1,13 @@
-- Input huge number day.
-- Input huge number night.
-- input 0.
-- Exceeding work limit including over-time for day shift.
-- Exceeding work limit including over-time for night shift.
-- Exceeding work limit including over-time for day AND night shift.
-- Only worked in day shift.
-- Only worked in night shift.
-- worked both day and night shift.
-- Both day and night shift is false.
-- currency showing in decimal and 2 digit notation, e.g, 100.02
-- Employee taken paid leave.
-- Employee had a day/night shift but missed.
-- employee scheduled for 20 hours a week and worked over time.
-- Show total weekly payment.
+- [x] Input huge number day.
+
+- [x] Input huge number night.
+- [x] input 0.
+- [x] Exceeding work limit including over-time for day shift.
+- [x] Exceeding work limit including over-time for night shift.
+- [x] Exceeding work limit including over-time for day AND night shift.
+- [x] Only worked in day shift.
+- [x] Only worked in night shift.
+- [x] worked both day and night shift.
+- [x] Both day and night shift is false.
+- [x] currency showing in decimal and 2 digit notation, e.g, 100.02
+- [x] Show total weekly payment.

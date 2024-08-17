@@ -26,3 +26,5 @@ if (totalWorkedHours > workLimitHours) {
   console.warn(`Since the employee exceeded the work limit, regular hours will be capped at ${maxBaseHours}, with the remaining ${totalOvertimeHours} hours classified as overtime.`);
 }
 ```
+
+2. Start with hard test cases first?
